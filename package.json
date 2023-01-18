@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "tsc --build && npm run start",
     "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn --poll src/index.ts",
-    "start": "ts-node src/index.ts",
+    "start": "ts-node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Willian Bretzke",
