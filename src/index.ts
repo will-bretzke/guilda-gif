@@ -25,6 +25,10 @@ app.use(
 
 const PORT = process.env.PORT || 3000;
 
+console.log(PORT);
+
+console.log(process.env);
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
