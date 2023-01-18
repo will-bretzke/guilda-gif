@@ -52,25 +52,24 @@ export default class GetGifsUseCase {
   API_GIPHY_URL = "https://api.giphy.com/v1/gifs/search";
 
   async execute({ gif, apiKey }: IRequest): Promise<IGifResponse[] | null> {
-    const url = `${this.API_GIPHY_URL}fefef?api_key=${apiKey}&q=${gif}&limit=50`;
+    const url = `${this.API_GIPHY_URL}?api_key=${apiKey}&q=${gif}&limit=50`;
+
+    let index: number;
+    let gifs: IGifResponse[] = [];
 
     try {
       const response = (await axios.get(url)).data as IResponse;
       let max = response["data"].length;
-
-      let index: number;
-      let gifs: IGifResponse[] = [];
 
       while (Object.keys(gifs).length < 5 && max > 0) {
         index = Math.floor(Math.random() * max);
         const gif = response?.data[index]["images"]["original"] as IGifResponse;
         if (!gifs.includes(gif)) gifs.push(gif);
       }
-
+    } finally {
       if (Object.keys(gifs).length > 0) {
         return gifs;
       }
-    } finally {
       return null;
     }
   }
