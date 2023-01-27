@@ -1,7 +1,7 @@
 export default class LoadTestUseCase {
     execute(): object[] {
         const array = [];
-        for (let index = 0; index < 17777; index++) {
+        for (let index = 0; index < 12500; index++) {
             array.push({
                 id: 1048,
                 brand: "colourpop",
