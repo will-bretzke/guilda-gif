@@ -318,7 +318,7 @@
                     ]
                 },
                 {
-                    "id": "smart-sales:4414a193-990c-40e1-8b28-2934e209febc",
+                    "id": "smart-sales:553e40f5-e790-42cf-9b9e-15347ff984eb",
                     "root": false,
                     "name": "Smart Sales",
                     "inputActions": [
@@ -335,7 +335,7 @@
                             "type": "ProcessHttp",
                             "settings": {
                                 "headers": {
-                                    "Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiQ2xpZW50IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy91c2VyZGF0YSI6InNtYXJ0c2FsZXNyb3V0ZXI6Vm5KelFtRm1UVXd6Vm1wblUxbFhaMWhRY1VnPTp0cmFuc2FjdCIsIm5iZiI6MTY5MDQ5MjcxNywiZXhwIjoxOTkwNDkyNzE3LCJpYXQiOjE2OTA0OTI3MTd9.5cYNWvTgORi8579UxuiG8JxU73rSc-DntvJdYfGDrUY",
+                                    "Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiQ2xpZW50IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy91c2VyZGF0YSI6InNtYXJ0c2FsZXNyb3V0ZXI6Vm5KelFtRm1UVXd6Vm1wblUxbFhaMWhRY1VnPTp0cmFuc2FjdCIsIm5iZiI6MTY5MDQ5MzE0NCwiZXhwIjoxOTkwNDkzMTQ0LCJpYXQiOjE2OTA0OTMxNDR9.Vh4Mc4kJTxLs0QorkHPmCRqq_ZroV76oePaifxBt0tw",
                                     "Identity": "{{contact.identity}}",
                                     "StateId": "{{state.id}}"
                                 },
@@ -473,7 +473,7 @@
                                     ]
                                 }
                             ],
-                            "stateId": "fallback"
+                            "stateId": "onboarding"
                         },
                         {
                             "conditions": [
@@ -486,7 +486,7 @@
                                     ]
                                 }
                             ],
-                            "stateId": "fallback"
+                            "stateId": "onboarding"
                         },
                         {
                             "conditions": [
@@ -499,7 +499,7 @@
                                     ]
                                 }
                             ],
-                            "stateId": "fallback"
+                            "stateId": "onboarding"
                         },
                         {
                             "stateId": "fallback"
