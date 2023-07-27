@@ -1,0 +1,521 @@
+{
+    "identifier": "wapaymentspocleidival",
+    "accessKey": "d2dOOG9iVTZvcUJuekRzVnpVWFg=",
+    "messageReceivers": [
+        {
+            "state": "default",
+            "type": "MessageReceiver"
+        }
+    ],
+    "notificationReceivers": [
+        {
+            "type": "DeskNotificationReceiver"
+        }
+    ],
+    "serviceProviderType": "ServiceProvider",
+    "settings": {
+        "flow": {
+            "id": "8161e4d5-d3f8-4f7b-9073-b06c90767769",
+            "version": 1,
+            "states": [
+                {
+                    "id": "onboarding",
+                    "root": true,
+                    "name": "Início",
+                    "inputActions": [],
+                    "input": {
+                        "bypass": false,
+                        "variable": "contato"
+                    },
+                    "outputActions": [
+                        {
+                            "type": "TrackContactsJourney",
+                            "settings": {
+                                "stateId": "onboarding",
+                                "stateName": "Início"
+                            }
+                        }
+                    ],
+                    "afterStateChangedActions": [],
+                    "outputs": [
+                        {
+                            "stateId": "5441aaf7-4752-490b-99fb-7eee923ac5a8",
+                            "typeOfStateId": "state",
+                            "conditions": [
+                                {
+                                    "source": "input",
+                                    "comparison": "exists",
+                                    "values": []
+                                }
+                            ]
+                        },
+                        {
+                            "stateId": "fallback"
+                        }
+                    ]
+                },
+                {
+                    "id": "fallback",
+                    "name": "Exceções",
+                    "inputActions": [
+                        {
+                            "type": "TrackContactsJourney",
+                            "settings": {
+                                "previousStateId": "{{state.previous.id}}",
+                                "previousStateName": "{{state.previous.name}}",
+                                "stateId": "{{state.id}}",
+                                "stateName": "{{state.name}}"
+                            }
+                        }
+                    ],
+                    "input": {
+                        "bypass": true
+                    },
+                    "outputActions": [],
+                    "afterStateChangedActions": [],
+                    "outputs": [
+                        {
+                            "stateId": "error",
+                            "conditions": [
+                                {
+                                    "source": "input",
+                                    "comparison": "matches",
+                                    "values": [
+                                        ".*"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "stateId": "onboarding"
+                        }
+                    ]
+                },
+                {
+                    "id": "error",
+                    "name": "Erro padrão",
+                    "inputActions": [
+                        {
+                            "type": "TrackContactsJourney",
+                            "settings": {
+                                "previousStateId": "{{state.previous.id}}",
+                                "previousStateName": "{{state.previous.name}}",
+                                "stateId": "{{state.id}}",
+                                "stateName": "{{state.name}}"
+                            }
+                        },
+                        {
+                            "type": "SendMessage",
+                            "settings": {
+                                "id": "00000000-0000-0000-0000-000000000002",
+                                "type": "application/vnd.lime.chatstate+json",
+                                "content": {
+                                    "state": "composing",
+                                    "interval": 1000
+                                },
+                                "metadata": {
+                                    "#stateName": "{{state.name}}",
+                                    "#stateId": "{{state.id}}",
+                                    "#messageId": "{{input.message@id}}",
+                                    "#previousStateId": "{{state.previous.id}}",
+                                    "#previousStateName": "{{state.previous.name}}"
+                                }
+                            }
+                        },
+                        {
+                            "type": "SendMessage",
+                            "settings": {
+                                "id": "00000000-0000-0000-0000-000000000003",
+                                "type": "text/plain",
+                                "content": "Desculpe, não consegui entender!",
+                                "metadata": {
+                                    "#stateName": "{{state.name}}",
+                                    "#stateId": "{{state.id}}",
+                                    "#messageId": "{{input.message@id}}",
+                                    "#previousStateId": "{{state.previous.id}}",
+                                    "#previousStateName": "{{state.previous.name}}"
+                                }
+                            }
+                        }
+                    ],
+                    "input": {
+                        "bypass": true
+                    },
+                    "outputActions": [],
+                    "afterStateChangedActions": [],
+                    "outputs": [
+                        {
+                            "stateId": "onboarding"
+                        }
+                    ]
+                },
+                {
+                    "id": "5441aaf7-4752-490b-99fb-7eee923ac5a8",
+                    "root": false,
+                    "name": "order_details",
+                    "inputActions": [
+                        {
+                            "type": "TrackContactsJourney",
+                            "settings": {
+                                "previousStateId": "{{state.previous.id}}",
+                                "previousStateName": "{{state.previous.name}}",
+                                "stateId": "{{state.id}}",
+                                "stateName": "{{state.name}}"
+                            }
+                        },
+                        {
+                            "type": "SendMessage",
+                            "settings": {
+                                "id": "7c8ec86e-a6c8-461c-a910-1180e7e13a53",
+                                "type": "text/plain",
+                                "content": "order_details",
+                                "metadata": {
+                                    "#stateName": "{{state.name}}",
+                                    "#stateId": "{{state.id}}",
+                                    "#messageId": "{{input.message@id}}",
+                                    "#previousStateId": "{{state.previous.id}}",
+                                    "#previousStateName": "{{state.previous.name}}"
+                                }
+                            }
+                        },
+                        {
+                            "type": "SendRawMessage",
+                            "settings": {
+                                "metadata": {
+                                    "#stateName": "{{state.name}}",
+                                    "#stateId": "{{state.id}}",
+                                    "#messageId": "{{input.message@id}}",
+                                    "#previousStateId": "{{state.previous.id}}",
+                                    "#previousStateName": "{{state.previous.name}}"
+                                },
+                                "type": "application/json",
+                                "rawContent": "{\n  \"type\": \"interactive\",\n  \"interactive\": {\n    \"type\": \"order_details\",\n    \"body\": {\n      \"text\": \"Pedido\"\n    },\n    \"action\": {\n      \"name\": \"review_and_pay\",\n      \"parameters\": {\n        \"reference_id\": \"20230321-123\",\n        \"type\": \"digital-goods\",\n        \"payment_type\": \"br\",\n        \"payment_configuration\": \"take_blip_test_payment_config\",\n        \"currency\": \"BRL\",\n        \"total_amount\": {\n          \"value\": 100,\n          \"offset\": 100\n        },\n        \"order\": {\n          \"status\": \"pending\",\n          \"tax\": {\n            \"value\": 0,\n            \"offset\": 100,\n            \"description\": \"Nenhuma taxa\"\n          },\n          \"expiration\": {\n            \"timestamp\": \"1704024000\",\n            \"description\": \"Pedido expirado\"\n          },\n          \"items\": [\n            {\n              \"retailer_id\": \"hamburguer_take\",\n              \"name\": \"Hamburger da take\",\n              \"amount\": {\n                \"value\": 100,\n                \"offset\": 100\n              },\n              \"quantity\": 1\n            }\n          ],\n          \"subtotal\": {\n            \"value\": 100,\n            \"offset\": 100\n          },\n          \"discount\": {\n            \"value\": 0,\n            \"offset\": 100,\n            \"description\": \"Nenhum desconto\",\n            \"discount_program_name\": \"padrão\"\n          }\n        }\n      }\n    }\n  }\n}"
+                            }
+                        },
+                        {
+                            "type": "SendMessage",
+                            "settings": {
+                                "id": "d27c3fc1-5417-44ce-a53d-0e388582866b",
+                                "type": "application/vnd.lime.chatstate+json",
+                                "content": {
+                                    "state": "composing",
+                                    "interval": 1000
+                                },
+                                "metadata": {
+                                    "#stateName": "{{state.name}}",
+                                    "#stateId": "{{state.id}}",
+                                    "#messageId": "{{input.message@id}}",
+                                    "#previousStateId": "{{state.previous.id}}",
+                                    "#previousStateName": "{{state.previous.name}}"
+                                }
+                            }
+                        }
+                    ],
+                    "input": {
+                        "bypass": false
+                    },
+                    "outputActions": [],
+                    "afterStateChangedActions": [],
+                    "outputs": [
+                        {
+                            "stateId": "20d4acc8-58c1-459a-8161-e3488e0b0b81",
+                            "typeOfStateId": "state",
+                            "conditions": [
+                                {
+                                    "source": "input",
+                                    "comparison": "exists",
+                                    "values": []
+                                }
+                            ]
+                        },
+                        {
+                            "stateId": "fallback"
+                        }
+                    ]
+                },
+                {
+                    "id": "20d4acc8-58c1-459a-8161-e3488e0b0b81",
+                    "root": false,
+                    "name": "order_status",
+                    "inputActions": [
+                        {
+                            "type": "TrackContactsJourney",
+                            "settings": {
+                                "previousStateId": "{{state.previous.id}}",
+                                "previousStateName": "{{state.previous.name}}",
+                                "stateId": "{{state.id}}",
+                                "stateName": "{{state.name}}"
+                            }
+                        },
+                        {
+                            "type": "SendMessage",
+                            "settings": {
+                                "id": "dd34f4f9-7a17-4538-8c06-28d1237c6c6a",
+                                "type": "text/plain",
+                                "content": "order_status",
+                                "metadata": {
+                                    "#stateName": "{{state.name}}",
+                                    "#stateId": "{{state.id}}",
+                                    "#messageId": "{{input.message@id}}",
+                                    "#previousStateId": "{{state.previous.id}}",
+                                    "#previousStateName": "{{state.previous.name}}"
+                                }
+                            }
+                        },
+                        {
+                            "type": "SendRawMessage",
+                            "settings": {
+                                "metadata": {
+                                    "#stateName": "{{state.name}}",
+                                    "#stateId": "{{state.id}}",
+                                    "#messageId": "{{input.message@id}}",
+                                    "#previousStateId": "{{state.previous.id}}",
+                                    "#previousStateName": "{{state.previous.name}}"
+                                },
+                                "type": "application/json",
+                                "rawContent": "{\n  \"recipient_type\": \"individual\",\n  \"to\": \"5585997639594\",\n  \"type\": \"interactive\",\n  \"interactive\": {\n    \"type\": \"order_status\",\n    \"body\": {\n      \"text\": \"Sending order status test - completed\"\n    },\n    \"footer\": {\n      \"text\": \"Take.net\"\n    },\n    \"action\": {\n      \"name\": \"review_order\",\n      \"parameters\": {\n        \"reference_id\": \"20230101-001\",\n        \"order\": {\n          \"status\": \"completed\",\n          \"description\": \"completed\"\n        }\n      }\n    }\n  }\n}"
+                            }
+                        },
+                        {
+                            "type": "SendMessage",
+                            "settings": {
+                                "id": "1acd8acf-19a9-412e-aa50-f66a75dfe0d8",
+                                "type": "application/vnd.lime.chatstate+json",
+                                "content": {
+                                    "state": "composing",
+                                    "interval": 1000
+                                },
+                                "metadata": {
+                                    "#stateName": "{{state.name}}",
+                                    "#stateId": "{{state.id}}",
+                                    "#messageId": "{{input.message@id}}",
+                                    "#previousStateId": "{{state.previous.id}}",
+                                    "#previousStateName": "{{state.previous.name}}"
+                                }
+                            }
+                        }
+                    ],
+                    "input": {
+                        "bypass": false
+                    },
+                    "outputActions": [],
+                    "afterStateChangedActions": [],
+                    "outputs": [
+                        {
+                            "stateId": "onboarding",
+                            "typeOfStateId": "state",
+                            "conditions": [
+                                {
+                                    "source": "input",
+                                    "comparison": "exists",
+                                    "values": []
+                                }
+                            ]
+                        },
+                        {
+                            "stateId": "fallback"
+                        }
+                    ]
+                },
+                {
+                    "id": "smart-sales:4414a193-990c-40e1-8b28-2934e209febc",
+                    "root": false,
+                    "name": "Smart Sales",
+                    "inputActions": [
+                        {
+                            "type": "TrackContactsJourney",
+                            "settings": {
+                                "previousStateId": "{{state.previous.id}}",
+                                "previousStateName": "{{state.previous.name}}",
+                                "stateId": "{{state.id}}",
+                                "stateName": "{{state.name}}"
+                            }
+                        },
+                        {
+                            "type": "ProcessHttp",
+                            "settings": {
+                                "headers": {
+                                    "Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiQ2xpZW50IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy91c2VyZGF0YSI6InNtYXJ0c2FsZXNyb3V0ZXI6Vm5KelFtRm1UVXd6Vm1wblUxbFhaMWhRY1VnPTp0cmFuc2FjdCIsIm5iZiI6MTY5MDQ5MjcxNywiZXhwIjoxOTkwNDkyNzE3LCJpYXQiOjE2OTA0OTI3MTd9.5cYNWvTgORi8579UxuiG8JxU73rSc-DntvJdYfGDrUY",
+                                    "Identity": "{{contact.identity}}",
+                                    "StateId": "{{state.id}}"
+                                },
+                                "method": "GET",
+                                "uri": "https://external-product-catalog.cs.blip.ai/api/Bot/catalog",
+                                "responseBodyVariable": "smartSalesCatalogUrlResponse",
+                                "responseStatusVariable": "smartSalesCatalogUrlStatus"
+                            }
+                        },
+                        {
+                            "type": "ProcessCommand",
+                            "settings": {
+                                "to": "postmaster@wa.gw.msging.net",
+                                "method": "get",
+                                "uri": "/wabas/details",
+                                "variable": "smartSalesWabaResponse"
+                            },
+                            "conditions": [
+                                {
+                                    "source": "context",
+                                    "comparison": "contains",
+                                    "variable": "contact.identity",
+                                    "values": [
+                                        "@wa.gw.msging.net"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "ProcessCommand",
+                            "settings": {
+                                "to": "postmaster@wa.gw.msging.net",
+                                "method": "get",
+                                "uri": "/message-templates?templateName=smart_sales_catalog_link&status=APPROVED",
+                                "variable": "smartSalesMessageTemplateResponse"
+                            },
+                            "conditions": [
+                                {
+                                    "source": "context",
+                                    "comparison": "exists",
+                                    "variable": "smartSalesWabaResponse@status"
+                                },
+                                {
+                                    "source": "context",
+                                    "comparison": "equals",
+                                    "variable": "smartSalesWabaResponse@status",
+                                    "values": [
+                                        "success"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "ExecuteScript",
+                            "settings": {
+                                "function": "run",
+                                "source": "function run(wabaResponse, messageTemplateResponse, catalogUrl) {\n    const { link } = convertToJSON(catalogUrl);\n\n    let message = {\n        type: \"text/plain\",\n        content: `Clique no link abaixo e navegue no catálogo\\n\\n${link}`,\n    };\n\n    const { messageTemplateNamespace } =\n        getDataFromProcessCommandResponse(wabaResponse);\n    const templateResource = getDataFromProcessCommandResponse(\n        messageTemplateResponse,\n    );\n\n    if (!templateResource) {\n        return message;\n    }\n\n    const [template] = templateResource.data;\n\n    if (messageTemplateNamespace && template) {\n        message = {\n            type: \"application/json\",\n            content: {\n                type: \"template\",\n                template: {\n                    namespace: messageTemplateNamespace,\n                    name: template.name,\n                    language: {\n                        policy: \"deterministic\",\n                        code: template.language,\n                    },\n                    components: [\n                        {\n                            sub_type: \"url\",\n                            index: \"0\",\n                            type: \"button\",\n                            parameters: [\n                                {\n                                    type: \"text\",\n                                    text: `catalog/${getUserSessionToken(\n                                        link,\n                                    )}`,\n                                },\n                            ],\n                        },\n                    ],\n                },\n            },\n        };\n    }\n\n    return message;\n}\n\nfunction convertToJSON(dataToConvert) {\n    if (dataToConvert && typeof dataToConvert !== \"object\") {\n        dataToConvert = JSON.parse(dataToConvert);\n    }\n\n    return dataToConvert;\n}\n\nfunction getDataFromProcessCommandResponse(commandResponse) {\n    commandResponse = convertToJSON(commandResponse);\n\n    return commandResponse && commandResponse.resource\n        ? commandResponse.resource\n        : false;\n}\n\nfunction getUserSessionToken(url) {\n    const catalogIndex = url.indexOf(\"/catalog/\");\n\n    return url.substring(catalogIndex + \"/catalog/\".length);\n}",
+                                "inputVariables": [
+                                    "smartSalesWabaResponse",
+                                    "smartSalesMessageTemplateResponse",
+                                    "smartSalesCatalogUrlResponse"
+                                ],
+                                "outputVariable": "smartSalesMessage",
+                                "LocalTimeZoneEnabled": true
+                            }
+                        },
+                        {
+                            "type": "ExecuteScript",
+                            "settings": {
+                                "function": "run",
+                                "source": "function run(message) {\n    if (typeof message !== \"object\") {\n        message = JSON.parse(message);\n    }\n\n    return message.content;\n}",
+                                "inputVariables": [
+                                    "smartSalesMessage"
+                                ],
+                                "outputVariable": "smartSalesMessageContent",
+                                "LocalTimeZoneEnabled": true
+                            }
+                        },
+                        {
+                            "type": "SendRawMessage",
+                            "settings": {
+                                "metadata": {
+                                    "#stateName": "{{state.name}}",
+                                    "#stateId": "{{state.id}}",
+                                    "#messageId": "{{input.message@id}}",
+                                    "#previousStateId": "{{state.previous.id}}",
+                                    "#previousStateName": "{{state.previous.name}}"
+                                },
+                                "type": "{{smartSalesMessage@type}}",
+                                "rawContent": "{{smartSalesMessageContent}}"
+                            }
+                        }
+                    ],
+                    "input": {
+                        "bypass": false,
+                        "expiration": "23:0"
+                    },
+                    "outputActions": [
+                        {
+                            "type": "ExecuteScript",
+                            "settings": {
+                                "function": "run",
+                                "source": "function run(currentCart) {\n    try {\n        if (currentCart && typeof currentCart !== \"object\") {\n            currentCart = JSON.parse(currentCart.replace(/\\\\([\\s\\S])/g, \"$1\"));\n        }\n\n        if (currentCart && currentCart.length) {\n            return true;\n        }\n\n        return false;\n    } catch(e) {\n        return false;\n    }\n}",
+                                "inputVariables": [
+                                    "contact.extras.currentCart"
+                                ],
+                                "outputVariable": "smartSalesUserHasProduct",
+                                "LocalTimeZoneEnabled": true
+                            }
+                        },
+                        {
+                            "type": "ExecuteScript",
+                            "settings": {
+                                "function": "run",
+                                "source": "function run(inputContent, userHasProduct) {\n    try {\n        if (!inputContent || !inputContent.length) {\n            return \"INACTIVITY\";\n        }\n\n        const regexes = [\n            {\n                rule: new RegExp(\"^(sim|s|yes|si)$\", \"i\"),\n                value: \"ACCEPT_TO_BUY\",\n            },\n            {\n                rule: new RegExp(\"^(n[ãa]o?|no|n)$\", \"i\"),\n                value: \"REFUSED_TO_BUY\",\n            },\n        ];\n\n        let matchedRegex = \"UNDEFINED\";\n\n        if (userHasProduct) {\n            regexes.forEach(regexObj => {\n                if (regexObj.rule.test(inputContent)) {\n                    matchedRegex = regexObj.value;\n                }\n            });\n        }\n\n        return matchedRegex;\n    } catch (e) {\n        return \"UNDEFINED\";\n    }\n}",
+                                "inputVariables": [
+                                    "input.content",
+                                    "smartSalesUserHasProduct"
+                                ],
+                                "outputVariable": "smartSalesUserResponse",
+                                "LocalTimeZoneEnabled": true
+                            }
+                        }
+                    ],
+                    "afterStateChangedActions": [],
+                    "outputs": [
+                        {
+                            "conditions": [
+                                {
+                                    "source": "context",
+                                    "comparison": "equals",
+                                    "variable": "smartSalesUserResponse",
+                                    "values": [
+                                        "ACCEPT_TO_BUY"
+                                    ]
+                                }
+                            ],
+                            "stateId": "fallback"
+                        },
+                        {
+                            "conditions": [
+                                {
+                                    "source": "context",
+                                    "comparison": "equals",
+                                    "variable": "smartSalesUserResponse",
+                                    "values": [
+                                        "REFUSED_TO_BUY"
+                                    ]
+                                }
+                            ],
+                            "stateId": "fallback"
+                        },
+                        {
+                            "conditions": [
+                                {
+                                    "source": "context",
+                                    "comparison": "equals",
+                                    "variable": "smartSalesUserResponse",
+                                    "values": [
+                                        "INACTIVITY"
+                                    ]
+                                }
+                            ],
+                            "stateId": "fallback"
+                        },
+                        {
+                            "stateId": "fallback"
+                        }
+                    ]
+                }
+            ],
+            "configuration": {
+                "builder:minimumIntentScore": "0.5",
+                "builder:stateTrack": "false",
+                "builder:#localTimeZone": "E. South America Standard Time"
+            },
+            "inputActions": [],
+            "outputActions": [],
+            "type": "flow"
+        }
+    },
+    "settingsType": "Settings"
+}
